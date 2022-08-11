@@ -17,11 +17,7 @@ export const ColorModeToggleContext = createContext({
 
 const getDesignTokens = (mode: PaletteMode) => ({
   typography: {
-    fontFamily: [
-      "'M PLUS Rounded 1c'",
-      'Noto Sans JP',
-      'sans-serif',
-    ].join(','),
+    fontFamily: ["'M PLUS Rounded 1c'", 'Noto Sans JP', 'sans-serif'].join(','),
     poster: {
       color: 'red',
     },
@@ -45,7 +41,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
       fontSize: '14px',
       lineHeight: 1.8,
       fontWeight: 400,
-    }
+    },
   },
   palette: {
     mode,
@@ -56,21 +52,19 @@ const getDesignTokens = (mode: PaletteMode) => ({
             contrastText: '#f9f4f4',
           },
         }
-      : {
-      }),
+      : {}),
   },
 });
-
 
 export const MuiThemeProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const [mode, setMode] = useState<ColorMode>("light");
+  const [mode, setMode] = useState<ColorMode>('light');
 
   useEffect(() => {
-    const mode = (localStorage.getItem("mode") ?? "light") as ColorMode;
+    const mode = (localStorage.getItem('mode') ?? 'light') as ColorMode;
     setMode(mode);
-    localStorage.setItem("mode", mode);
+    localStorage.setItem('mode', mode);
   }, []);
 
   const colorMode = useMemo(
@@ -78,22 +72,18 @@ export const MuiThemeProvider: React.FC<{
       toggleColorMode: () => {
         setMode((prevMode) => {
           if (prevMode === 'light') {
-            localStorage.setItem("mode", 'dark');
+            localStorage.setItem('mode', 'dark');
           } else {
-            localStorage.setItem("mode", 'light');
+            localStorage.setItem('mode', 'light');
           }
-          return (prevMode === 'light' ? 'dark' : 'light')
+          return prevMode === 'light' ? 'dark' : 'light';
         });
       },
     }),
     []
   );
 
-  const theme = useMemo(
-    () =>
-      createTheme(getDesignTokens(mode)),
-    [mode]
-  );
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   return (
     <ColorModeToggleContext.Provider value={colorMode}>

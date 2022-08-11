@@ -13,7 +13,7 @@ import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
-import Button from '@mui/material/Button'
+import Button from '@mui/material/Button';
 
 interface Data {
   calories: number;
@@ -28,7 +28,7 @@ function createData(
   calories: number,
   fat: number,
   carbs: number,
-  protein: number,
+  protein: number
 ): Data {
   return {
     name,
@@ -69,10 +69,10 @@ type Order = 'asc' | 'desc';
 
 function getComparator<Key extends keyof any>(
   order: Order,
-  orderBy: Key,
+  orderBy: Key
 ): (
   a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string },
+  b: { [key in Key]: number | string }
 ) => number {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -81,7 +81,10 @@ function getComparator<Key extends keyof any>(
 
 // This method is created for cross-browser compatibility, if you don't
 // need to support IE11, you can use Array.prototype.sort() directly
-function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
+function stableSort<T>(
+  array: readonly T[],
+  comparator: (a: T, b: T) => number
+) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -134,28 +137,31 @@ const headCells: readonly HeadCell[] = [
 ];
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-  
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-      border: 0,
-    },
-  }));
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 interface EnhancedTableProps {
   numSelected: number;
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
+  onRequestSort: (
+    event: React.MouseEvent<unknown>,
+    property: keyof Data
+  ) => void;
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   order: Order;
   orderBy: string;
@@ -163,8 +169,14 @@ interface EnhancedTableProps {
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-    props;
+  const {
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+  } = props;
   const createSortHandler =
     (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
@@ -209,7 +221,7 @@ export const EnhancedTable = () => {
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof Data,
+    property: keyof Data
   ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -229,7 +241,9 @@ export const EnhancedTable = () => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -277,11 +291,7 @@ export const EnhancedTable = () => {
                       tabIndex={-1}
                       key={row.name}
                     >
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                      >
+                      <TableCell component="th" id={labelId} scope="row">
                         {row.name}
                       </TableCell>
                       <TableCell align="right">{row.calories}</TableCell>
@@ -290,7 +300,7 @@ export const EnhancedTable = () => {
                       <TableCell align="right">{row.protein}</TableCell>
                       <TableCell>
                         <Button variant="contained" color="primary">
-                            編集
+                          編集
                         </Button>
                       </TableCell>
                     </StyledTableRow>
@@ -324,4 +334,4 @@ export const EnhancedTable = () => {
       />
     </Box>
   );
-}
+};

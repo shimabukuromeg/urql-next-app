@@ -4,7 +4,6 @@ import { AuthenticatedLayout } from '@/src/layouts/authenticated-layout';
 import type { NextPageWithLayout } from '@/src/pages/_app';
 import { EnhancedTable } from '@/src/components/Table/EnhancedTable';
 
-
 const Index: NextPageWithLayout = () => {
   return (
     <Stack spacing={2}>
