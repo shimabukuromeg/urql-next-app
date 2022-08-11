@@ -11,6 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import MuiDrawer from '@mui/material/Drawer';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { DRAWER_WIDTH } from '@/src/constants';
 import Link from 'next/link';
@@ -83,6 +84,12 @@ export const MenuDrawer = ({ open, toggleDrawer }: Props) => {
             <PeopleIcon />
           </ListItemIcon>
           <ListItemText primary="ユーザー一覧" />
+        </ListItemButton>
+        <ListItemButton path="/users/new">
+          <ListItemIcon>
+            <PersonAddIcon />
+          </ListItemIcon>
+          <ListItemText primary="ユーザー追加" />
         </ListItemButton>
         <ListItemButton path="/login">
           <ListItemIcon>
