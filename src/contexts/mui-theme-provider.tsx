@@ -16,6 +16,37 @@ export const ColorModeToggleContext = createContext({
 });
 
 const getDesignTokens = (mode: PaletteMode) => ({
+  typography: {
+    fontFamily: [
+      "'M PLUS Rounded 1c'",
+      'Noto Sans JP',
+      'sans-serif',
+    ].join(','),
+    poster: {
+      color: 'red',
+    },
+    h1: {
+      fontSize: '28px',
+      lineHeight: 1.5,
+      fontWeight: 700,
+    },
+    h2: {
+      fontSize: '24px',
+      lineHeight: 1.5,
+      fontWeight: 700,
+    },
+    h3: {
+      fontSize: '20px',
+      lineHeight: 1.5,
+      fontWeight: 700,
+      fontFamily: 'Noto Sans JP',
+    },
+    body1: {
+      fontSize: '14px',
+      lineHeight: 1.8,
+      fontWeight: 400,
+    }
+  },
   palette: {
     mode,
     ...(mode === 'light'
