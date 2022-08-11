@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Box, Button, Typography, Stack } from "@mui/material";
+import { Box, Button, Typography, Stack } from '@mui/material';
 import { UnauthenticatedLayout } from '@/src/layouts';
 import type { NextPageWithLayout } from '@/src/pages/_app';
 import Link from 'next/link';
@@ -19,11 +19,11 @@ const Index: NextPageWithLayout = () => {
         </Button>
       </Link>
     </Stack>
-  )
-}
+  );
+};
 
 Index.getLayout = (page: ReactElement) => (
   <UnauthenticatedLayout>{page}</UnauthenticatedLayout>
 );
 
-export default Index
+export default Index;

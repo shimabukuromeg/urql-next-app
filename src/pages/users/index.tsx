@@ -1,5 +1,5 @@
-import type { NextPage } from 'next'
-import { Box, Button, Typography } from "@mui/material";
+import type { NextPage } from 'next';
+import { Box, Button, Typography } from '@mui/material';
 
 const Home: NextPage = () => {
   return (
@@ -9,7 +9,7 @@ const Home: NextPage = () => {
         ボタン
       </Button>
     </Box>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

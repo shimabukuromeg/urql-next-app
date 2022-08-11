@@ -1,11 +1,10 @@
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import { CacheProvider } from "@emotion/react";
-import { AuthenticatedLayout } from "@/src/layouts/authenticated-layout";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { CacheProvider } from '@emotion/react';
+import { AuthenticatedLayout } from '@/src/layouts/authenticated-layout';
 import { ReactElement, ReactNode } from 'react';
-
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -22,12 +21,12 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     Component.getLayout ??
     ((page) => <AuthenticatedLayout>{page}</AuthenticatedLayout>);
 
-    return getLayout(
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
+  return getLayout(
+    <ThemeProvider theme={theme}>
+      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+      <CssBaseline />
+      <Component {...pageProps} />
+    </ThemeProvider>
   );
 }
 
