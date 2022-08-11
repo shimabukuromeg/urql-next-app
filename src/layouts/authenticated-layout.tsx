@@ -5,6 +5,7 @@ import Container from '@mui/material/Container';
 import { useState } from 'react';
 import { AppBar } from '@/src/components/Navigation/AppBar';
 import { MenuDrawer } from '@/src/components/Navigation/MenuDrawer';
+import { CommonLayout } from './common-layout';
 
 export const AuthenticatedLayout = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(true);
@@ -13,26 +14,28 @@ export const AuthenticatedLayout = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <AppBar open={open} toggleDrawer={toggleDrawer} isAuth={true} />
-      <MenuDrawer open={open} toggleDrawer={toggleDrawer} />
-      <Box
-        component="main"
-        sx={{
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'light'
-              ? theme.palette.grey[100]
-              : theme.palette.grey[900],
-          flexGrow: 1,
-          height: '100vh',
-          overflow: 'auto',
-        }}
-      >
-        <Toolbar />
-        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-          {children}
-        </Container>
+    <CommonLayout>
+      <Box sx={{ display: 'flex' }}>
+        <AppBar open={open} toggleDrawer={toggleDrawer} isAuth={true} />
+        <MenuDrawer open={open} toggleDrawer={toggleDrawer} />
+        <Box
+          component="main"
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+            flexGrow: 1,
+            height: '100vh',
+            overflow: 'auto',
+          }}
+        >
+          <Toolbar />
+          <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+            {children}
+          </Container>
+        </Box>
       </Box>
-    </Box>
+    </CommonLayout>
   );
 };
