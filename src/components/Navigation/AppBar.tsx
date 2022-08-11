@@ -9,14 +9,14 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { useColorModeSelectContext } from '@/src/contexts/mui-theme-provider';
 interface MyAppBarProps extends MuiAppBarProps {
-  isAuth?: boolean;
+  isAuth: boolean;
   title?: string;
   open?: boolean;
   toggleDrawer?: () => void;
 }
 
 const MyAppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
+  shouldForwardProp: (prop) => prop !== 'open' && prop !== 'isAuth',
 })<MyAppBarProps>(({ theme, open, isAuth }) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
