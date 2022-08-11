@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import { ReactElement } from 'react';
 import { Box, Button, Typography, Stack, Paper } from '@mui/material';
 import { AuthenticatedLayout } from '@/src/layouts/authenticated-layout';

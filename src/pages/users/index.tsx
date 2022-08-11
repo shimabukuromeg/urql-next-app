@@ -1,7 +1,9 @@
-import type { NextPage } from 'next';
+import { ReactElement } from 'react';
 import { Box, Button, Typography } from '@mui/material';
+import { AuthenticatedLayout } from '@/src/layouts/authenticated-layout';
+import type { NextPageWithLayout } from '@/src/pages/_app';
 
-const Home: NextPage = () => {
+const Index: NextPageWithLayout = () => {
   return (
     <Box>
       <Typography variant="h2">ユーザー一覧</Typography>
@@ -12,4 +14,8 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+Index.getLayout = (page: ReactElement) => (
+  <AuthenticatedLayout>{page}</AuthenticatedLayout>
+);
+
+export default Index;
