@@ -1,6 +1,7 @@
 import React, {
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -33,12 +34,25 @@ const getDesignTokens = (mode: PaletteMode) => ({
 export const MuiThemeProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const [mode, setMode] = useState<ColorMode>('dark');
+  const [mode, setMode] = useState<ColorMode>("light");
+
+  useEffect(() => {
+    const mode = (localStorage.getItem("mode") ?? "light") as ColorMode;
+    setMode(mode);
+    localStorage.setItem("mode", mode);
+  }, []);
 
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        setMode((prevMode) => {
+          if (prevMode === 'light') {
+            localStorage.setItem("mode", 'dark');
+          } else {
+            localStorage.setItem("mode", 'light');
+          }
+          return (prevMode === 'light' ? 'dark' : 'light')
+        });
       },
     }),
     []
