@@ -10,7 +10,7 @@ const ExtendPaper = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   textAlign: 'center',
   padding: theme.spacing(8),
-  borderRadius: "4px",
+  borderRadius: '4px',
 }));
 
 const Index: NextPageWithLayout = () => {
@@ -22,10 +22,11 @@ const Index: NextPageWithLayout = () => {
       spacing={2}
     >
       <ExtendPaper elevation={4}>
-        <Typography variant="h2" fontSize="24px" fontWeight="bold" mb={4}>ログイン</Typography>
+        <Typography variant="h2" fontSize="24px" fontWeight="bold" mb={4}>
+          ログイン
+        </Typography>
         <LoginForm />
       </ExtendPaper>
-
     </Stack>
   );
 };

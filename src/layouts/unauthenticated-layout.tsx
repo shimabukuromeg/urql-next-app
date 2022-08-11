@@ -11,7 +11,7 @@ export const UnauthenticatedLayout = ({
 }) => {
   return (
     <CommonLayout>
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <AppBar open={true} />
         <Box
           component="main"

@@ -1,10 +1,19 @@
-import React, { createContext, useContext, useMemo, useState, Dispatch, SetStateAction } from "react";
+import React, {
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-export type ColorMode = "light" | "dark";
+export type ColorMode = 'light' | 'dark';
 
-export const ColorModeToggleContext = createContext({ toggleColorMode: () => {} });
+export const ColorModeToggleContext = createContext({
+  toggleColorMode: () => {},
+});
 
 export const MuiThemeProvider: React.FC<{
   children: React.ReactNode;
@@ -17,7 +26,7 @@ export const MuiThemeProvider: React.FC<{
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
       },
     }),
-    [],
+    []
   );
 
   const theme = useMemo(
@@ -27,7 +36,7 @@ export const MuiThemeProvider: React.FC<{
           mode,
         },
       }),
-    [mode],
+    [mode]
   );
 
   return (
