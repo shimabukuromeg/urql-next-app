@@ -1,8 +1,17 @@
 import { ReactElement } from 'react';
-import { Box, Button, Typography, Stack } from '@mui/material';
+import { Box, Button, Typography, Stack, Paper } from '@mui/material';
 import { UnauthenticatedLayout } from '@/src/layouts';
 import type { NextPageWithLayout } from '@/src/pages/_app';
-import Link from 'next/link';
+import { LoginForm } from '@/src/components/Form';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+
+const ExtendPaper = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  color: theme.palette.text.secondary,
+  textAlign: 'center',
+  padding: theme.spacing(8),
+  borderRadius: "4px",
+}));
 
 const Index: NextPageWithLayout = () => {
   return (
@@ -12,12 +21,11 @@ const Index: NextPageWithLayout = () => {
       alignItems="center"
       spacing={2}
     >
-      <Typography variant="h2">ログイン</Typography>
-      <Link href="/" passHref>
-        <Button variant="contained" color="primary">
-          ログイン
-        </Button>
-      </Link>
+      <ExtendPaper elevation={4}>
+        <Typography variant="h2" fontSize="24px" fontWeight="bold" mb={4}>ログイン</Typography>
+        <LoginForm />
+      </ExtendPaper>
+
     </Stack>
   );
 };
