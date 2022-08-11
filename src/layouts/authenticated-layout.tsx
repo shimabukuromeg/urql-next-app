@@ -3,8 +3,8 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import { useState } from 'react';
-import { AppBar } from '@/src/components/AppBar';
-import { MenuDrawer } from '@/src/components/MenuDrawer';
+import { AppBar } from '@/src/components/Navigation/AppBar';
+import { MenuDrawer } from '@/src/components/Navigation/MenuDrawer';
 
 export const AuthenticatedLayout = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(true);

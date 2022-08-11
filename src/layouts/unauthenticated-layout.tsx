@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { AppBar } from '@/src/components/AppBar';
+import { AppBar } from '@/src/components/Navigation/AppBar';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
