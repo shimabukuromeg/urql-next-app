@@ -22,7 +22,6 @@ export const UnauthenticatedLayout = ({
           }}
         >
           <Stack
-            maxWidth="xl"
             height={'100%'}
             direction="row"
             justifyContent="center"

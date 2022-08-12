@@ -27,7 +27,7 @@ export const AuthenticatedLayout = ({ children }: { children: ReactNode }) => {
           }}
         >
           <Toolbar />
-          <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+          <Container sx={{ mt: 4, mb: 4 }}>
             {children}
           </Container>
         </Box>
