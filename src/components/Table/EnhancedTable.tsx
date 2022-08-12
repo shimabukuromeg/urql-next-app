@@ -16,43 +16,43 @@ import { visuallyHidden } from '@mui/utils';
 import Button from '@mui/material/Button';
 
 interface Data {
-  calories: number;
-  carbs: number;
-  fat: number;
   name: string;
-  protein: number;
+  email: string;
+  company: string;
+  age: number;
+  food: string;
 }
 
 function createData(
   name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
+  email: string,
+  company: string,
+  age: number,
+  food: string
 ): Data {
   return {
     name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    email,
+    company,
+    age,
+    food,
   };
 }
 
 const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
+  createData('太郎', 'sample1@example.com', '会社A', 67, 'カレー'),
+  createData('次郎', 'sample2@example.com', '会社B', 27, '寿司'),
+  createData('三郎', 'sample3@example.com', '会社C', 47, '焼肉'),
+  createData('幸次郎', 'sample4@example.com', '会社D', 37, 'カレー'),
+  createData('悟', 'sample5@example.com', '会社E', 17, 'カレー'),
+  createData('健吾', 'sample6@example.com', '会社F', 63, '寿司'),
+  createData('美咲', 'sample7@example.com', '会社G', 64, '焼肉'),
+  createData('由香', 'sample8@example.com', '会社H', 44, '焼肉'),
+  createData('梨花', 'sample9@example.com', '会社I', 51, '寿司'),
+  createData('花子', 'sample10@example.com', '会社J', 37, '焼肉'),
+  createData('恵美香', 'sample11@example.com', '会社K', 22, '寿司'),
+  createData('京子', 'sample12@example.com', '会社L', 27, '焼肉'),
+  createData('まさみ', 'sample13@example.com', '会社M', 17, '寿司'),
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -97,42 +97,36 @@ function stableSort<T>(
 }
 
 interface HeadCell {
-  disablePadding: boolean;
   id: keyof Data;
   label: string;
   numeric: boolean;
 }
 
 const headCells: readonly HeadCell[] = [
+    {
+        id: 'company',
+        numeric: false,
+        label: '会社',
+      },    
   {
     id: 'name',
     numeric: false,
-    disablePadding: true,
-    label: 'Dessert (100g serving)',
+    label: '名前',
   },
   {
-    id: 'calories',
-    numeric: true,
-    disablePadding: false,
-    label: 'Calories',
+    id: 'email',
+    numeric: false,
+    label: 'メールアドレス',
   },
   {
-    id: 'fat',
-    numeric: true,
-    disablePadding: false,
-    label: 'Fat (g)',
+    id: 'age',
+    numeric: false,
+    label: '年齢',
   },
   {
-    id: 'carbs',
-    numeric: true,
-    disablePadding: false,
-    label: 'Carbs (g)',
-  },
-  {
-    id: 'protein',
-    numeric: true,
-    disablePadding: false,
-    label: 'Protein (g)',
+    id: 'food',
+    numeric: false,
+    label: '好きな食べ物',
   },
 ];
 
@@ -188,7 +182,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         {headCells.map((headCell) => (
           <StyledTableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align='left'
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -213,7 +207,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 export const EnhancedTable = () => {
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
+  const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -292,12 +286,12 @@ export const EnhancedTable = () => {
                       key={row.name}
                     >
                       <TableCell component="th" id={labelId} scope="row">
-                        {row.name}
+                        {row.company}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="left">{row.name}</TableCell>
+                      <TableCell align="left">{row.email}</TableCell>
+                      <TableCell align="left">{row.age}</TableCell>
+                      <TableCell align="left">{row.food}</TableCell>
                       <TableCell>
                         <Button variant="contained" color="primary">
                           編集
