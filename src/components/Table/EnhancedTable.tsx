@@ -103,11 +103,11 @@ interface HeadCell {
 }
 
 const headCells: readonly HeadCell[] = [
-    {
-        id: 'company',
-        numeric: false,
-        label: '会社',
-      },    
+  {
+    id: 'company',
+    numeric: false,
+    label: '会社',
+  },
   {
     id: 'name',
     numeric: false,
@@ -182,7 +182,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         {headCells.map((headCell) => (
           <StyledTableCell
             key={headCell.id}
-            align='left'
+            align="left"
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
