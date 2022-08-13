@@ -1,14 +1,25 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { FormHelperText, Button, FormLabel, TextField, Stack, FormControl, InputLabel, Select, MenuItem, FormControlLabel, Checkbox, FormGroup } from '@mui/material';
+import {
+  FormHelperText,
+  Button,
+  FormLabel,
+  TextField,
+  Stack,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControlLabel,
+  Checkbox,
+  FormGroup,
+} from '@mui/material';
 import { useRouter } from 'next/router';
 import { ErrorMessage } from 'formik';
 
 const validationSchema = yup.object({
-  company: yup
-    .string()
-    .required('会社名は必須です'),  
+  company: yup.string().required('会社名は必須です'),
   email: yup
     .string()
     .email('Enter a valid email')
@@ -17,13 +28,11 @@ const validationSchema = yup.object({
     .string()
     .min(1, 'name should be of minimum 8 characters length')
     .required('名前は必須です'),
-  age: yup
-    .number()
-    .required('年齢は必須です'),
+  age: yup.number().required('年齢は必須です'),
   foods: yup
     .array()
     .min(1, '好きな食べ物は必須です')
-    .required('好きな食べ物は必須です'),  
+    .required('好きな食べ物は必須です'),
 });
 
 export const NewUserForm = () => {
@@ -33,7 +42,7 @@ export const NewUserForm = () => {
       name: '太郎',
       company: '会社名',
       age: 30,
-      foods: []
+      foods: [],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -85,7 +94,7 @@ export const NewUserForm = () => {
               label="年齢"
               onChange={formik.handleChange}
               error={formik.touched.age && Boolean(formik.errors.age)}
-              sx={{ textAlign: "left" }}
+              sx={{ textAlign: 'left' }}
             >
               <MenuItem value={10}>10</MenuItem>
               <MenuItem value={20}>20</MenuItem>
@@ -95,16 +104,36 @@ export const NewUserForm = () => {
               <MenuItem value={60}>60</MenuItem>
             </Select>
           </FormControl>
-          <FormControl error={formik.touched.foods && Boolean(formik.errors.foods)}>
-            <FormLabel sx={{ textAlign: "left" }}>好きな食べ物</FormLabel>
+          <FormControl
+            error={formik.touched.foods && Boolean(formik.errors.foods)}
+          >
+            <FormLabel sx={{ textAlign: 'left' }}>好きな食べ物</FormLabel>
             <FormGroup>
-              <FormControlLabel control={<Checkbox {...formik.getFieldProps('foods')}　value="sushi" />} label="寿司" />
-              <FormControlLabel control={<Checkbox {...formik.getFieldProps('foods')}　value="yakiniku" />} label="焼肉" />
-              <FormControlLabel control={<Checkbox {...formik.getFieldProps('foods')}　value="curry" />} label="カレー" />
+              <FormControlLabel
+                control={
+                  <Checkbox {...formik.getFieldProps('foods')} value="sushi" />
+                }
+                label="寿司"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    {...formik.getFieldProps('foods')}
+                    value="yakiniku"
+                  />
+                }
+                label="焼肉"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox {...formik.getFieldProps('foods')} value="curry" />
+                }
+                label="カレー"
+              />
             </FormGroup>
-            {
-              formik.touched.foods && Boolean(formik.errors.foods) && <FormHelperText>好きな食べ物は必須です</FormHelperText>
-            }
+            {formik.touched.foods && Boolean(formik.errors.foods) && (
+              <FormHelperText>好きな食べ物は必須です</FormHelperText>
+            )}
           </FormControl>
           <Button color="primary" variant="contained" fullWidth type="submit">
             追加
