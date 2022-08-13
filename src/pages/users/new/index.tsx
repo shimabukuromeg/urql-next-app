@@ -1,16 +1,26 @@
 import { ReactElement } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Stack, Box, Button, Typography, Paper } from '@mui/material';
 import { AuthenticatedLayout } from '@/src/layouts/authenticated-layout';
 import type { NextPageWithLayout } from '@/src/pages/_app';
+import { NewUserForm } from '@/src/components/Form';
+import { styled } from '@mui/material/styles';
+
+const ExtendPaper = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  color: theme.palette.text.secondary,
+  textAlign: 'center',
+  padding: theme.spacing(8),
+  borderRadius: '4px',
+}));
 
 const Index: NextPageWithLayout = () => {
   return (
-    <Box>
+    <Stack spacing={2}>
       <Typography variant="h2">ユーザー追加</Typography>
-      <Button variant="contained" color="primary">
-        ボタン
-      </Button>
-    </Box>
+      <ExtendPaper elevation={4}>
+        <NewUserForm />
+      </ExtendPaper>
+    </Stack>
   );
 };
 

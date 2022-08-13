@@ -3,7 +3,7 @@ import { Box, Button, Typography, Stack, Paper } from '@mui/material';
 import { UnauthenticatedLayout } from '@/src/layouts';
 import type { NextPageWithLayout } from '@/src/pages/_app';
 import { LoginForm } from '@/src/components/Form';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 
 const ExtendPaper = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
