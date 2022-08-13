@@ -14,9 +14,11 @@ import {
   FormControlLabel,
   Checkbox,
   FormGroup,
+  Snackbar,
+  Alert,
 } from '@mui/material';
-import { useRouter } from 'next/router';
-import { ErrorMessage } from 'formik';
+import { useState } from 'react';
+import Slide, { SlideProps } from '@mui/material/Slide';
 
 const validationSchema = yup.object({
   company: yup.string().required('会社名は必須です'),
@@ -35,7 +37,28 @@ const validationSchema = yup.object({
     .required('好きな食べ物は必須です'),
 });
 
+type TransitionProps = Omit<SlideProps, 'direction'>;
+
 export const NewUserForm = () => {
+  const [open, setOpen] = useState(false);
+  const [transition, setTransition] = useState<
+    React.ComponentType<TransitionProps> | undefined
+  >(undefined);
+
+  const handleClick =
+    (Transition: React.ComponentType<TransitionProps>) => () => {
+      setTransition(() => Transition);
+      setOpen(true);
+    };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  function TransitionLeft(props: TransitionProps) {
+    return <Slide {...props} direction="left" />;
+  }
+
   const formik = useFormik({
     initialValues: {
       email: 'foobar@example.com',
@@ -47,6 +70,7 @@ export const NewUserForm = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
+      handleClick(TransitionLeft)();
     },
   });
 
@@ -140,6 +164,16 @@ export const NewUserForm = () => {
           </Button>
         </Stack>
       </form>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        TransitionComponent={transition}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          ユーザーを追加しました
+        </Alert>
+      </Snackbar>
     </Stack>
   );
 };
