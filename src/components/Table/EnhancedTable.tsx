@@ -17,42 +17,21 @@ import Button from '@mui/material/Button';
 
 interface Data {
   name: string;
-  email: string;
-  company: string;
-  age: number;
-  food: string;
+  id: number;
 }
 
-function createData(
-  name: string,
-  email: string,
-  company: string,
-  age: number,
-  food: string
-): Data {
+function createData(name: string, id: number): Data {
   return {
     name,
-    email,
-    company,
-    age,
-    food,
+    id,
   };
 }
 
 const rows = [
-  createData('太郎', 'sample1@example.com', '会社A', 67, 'カレー'),
-  createData('次郎', 'sample2@example.com', '会社B', 27, '寿司'),
-  createData('三郎', 'sample3@example.com', '会社C', 47, '焼肉'),
-  createData('幸次郎', 'sample4@example.com', '会社D', 37, 'カレー'),
-  createData('悟', 'sample5@example.com', '会社E', 17, 'カレー'),
-  createData('健吾', 'sample6@example.com', '会社F', 63, '寿司'),
-  createData('美咲', 'sample7@example.com', '会社G', 64, '焼肉'),
-  createData('由香', 'sample8@example.com', '会社H', 44, '焼肉'),
-  createData('梨花', 'sample9@example.com', '会社I', 51, '寿司'),
-  createData('花子', 'sample10@example.com', '会社J', 37, '焼肉'),
-  createData('恵美香', 'sample11@example.com', '会社K', 22, '寿司'),
-  createData('京子', 'sample12@example.com', '会社L', 27, '焼肉'),
-  createData('まさみ', 'sample13@example.com', '会社M', 17, '寿司'),
+  createData('太郎', 1),
+  createData('次郎', 2),
+  createData('三郎', 3),
+  createData('四郎', 4),
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -104,29 +83,14 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: 'company',
+    id: 'id',
     numeric: false,
-    label: '会社',
+    label: 'ID',
   },
   {
     id: 'name',
     numeric: false,
     label: '名前',
-  },
-  {
-    id: 'email',
-    numeric: false,
-    label: 'メールアドレス',
-  },
-  {
-    id: 'age',
-    numeric: false,
-    label: '年齢',
-  },
-  {
-    id: 'food',
-    numeric: false,
-    label: '好きな食べ物',
   },
 ];
 
@@ -199,7 +163,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             </TableSortLabel>
           </StyledTableCell>
         ))}
-        <StyledTableCell />
       </TableRow>
     </TableHead>
   );
@@ -207,11 +170,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 export const EnhancedTable = () => {
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
+  const [orderBy, setOrderBy] = React.useState<keyof Data>('id');
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -283,20 +246,12 @@ export const EnhancedTable = () => {
                       hover
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.id}
                     >
                       <TableCell component="th" id={labelId} scope="row">
-                        {row.company}
+                        {row.id}
                       </TableCell>
                       <TableCell align="left">{row.name}</TableCell>
-                      <TableCell align="left">{row.email}</TableCell>
-                      <TableCell align="left">{row.age}</TableCell>
-                      <TableCell align="left">{row.food}</TableCell>
-                      <TableCell>
-                        <Button variant="contained" color="primary">
-                          編集
-                        </Button>
-                      </TableCell>
                     </StyledTableRow>
                   );
                 })}

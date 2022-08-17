@@ -85,12 +85,6 @@ export const MenuDrawer = ({ open, toggleDrawer }: Props) => {
           </ListItemIcon>
           <ListItemText primary="ユーザー一覧" />
         </ListItemButton>
-        <ListItemButton path="/users/new">
-          <ListItemIcon>
-            <PersonAddIcon />
-          </ListItemIcon>
-          <ListItemText primary="ユーザー追加" />
-        </ListItemButton>
         <ListItemButton path="/login">
           <ListItemIcon>
             <LogoutIcon />
