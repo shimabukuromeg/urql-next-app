@@ -8,10 +8,7 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import {
-  Button,
-  TextField,
-} from '@mui/material';
+import { Button, TextField } from '@mui/material';
 
 const validationSchema = yup.object({
   name: yup
@@ -19,7 +16,6 @@ const validationSchema = yup.object({
     .min(1, 'name should be of minimum 8 characters length')
     .required('名前は必須です'),
 });
-
 
 export const FormDialog = () => {
   const [open, setOpen] = React.useState(false);
