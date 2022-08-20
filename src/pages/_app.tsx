@@ -11,6 +11,8 @@ import {
   useState,
   createContext,
 } from 'react';
+import { Provider } from 'urql';
+import { client } from '../lib/graphql';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -23,7 +25,11 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
-  return getLayout(<Component {...pageProps} />);
+  return getLayout(
+    <Provider value={client}>
+      <Component {...pageProps} />
+    </Provider>
+  );
 }
 
 export default MyApp;

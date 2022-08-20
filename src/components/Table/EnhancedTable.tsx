@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,26 +13,12 @@ import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
-import Button from '@mui/material/Button';
+import { useFetchEmployeeListQuery } from '@/generated/graphql';
 
 interface Data {
   name: string;
   id: number;
 }
-
-function createData(name: string, id: number): Data {
-  return {
-    name,
-    id,
-  };
-}
-
-const rows = [
-  createData('太郎', 1),
-  createData('次郎', 2),
-  createData('三郎', 3),
-  createData('四郎', 4),
-];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -185,14 +171,6 @@ export const EnhancedTable = () => {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const newSelected = rows.map((n) => n.name);
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -209,11 +187,13 @@ export const EnhancedTable = () => {
     setDense(event.target.checked);
   };
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
+  const [result] = useFetchEmployeeListQuery();
+  const { data, error } = result;
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  console.log(data);
+
+  if (error) return <div>{error.message}</div>;
+  if (!data) return <div>No data</div>;
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -228,49 +208,39 @@ export const EnhancedTable = () => {
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={data?.employeesCollection?.edges?.length ?? 0}
+              onSelectAllClick={() => {}}
             />
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(rows, getComparator(order, orderBy))
+              {(data?.employeesCollection?.edges || [])
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
+                  if (row?.node == null) return <></>
 
                   return (
                     <StyledTableRow
                       hover
-                      aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.id}
+                      key={row?.node.id}
                     >
                       <TableCell component="th" id={labelId} scope="row">
-                        {row.id}
+                        {row?.node.id}
                       </TableCell>
-                      <TableCell align="left">{row.name}</TableCell>
+                      <TableCell align="left">{row?.node.name}</TableCell>
                     </StyledTableRow>
                   );
                 })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={data?.employeesCollection?.edges.length || 0}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

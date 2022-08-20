@@ -1,0 +1,10 @@
+query FetchEmployeeList {
+  employeesCollection {
+    edges {
+      node {
+        id
+        name
+      }
+    }
+  }
+}
