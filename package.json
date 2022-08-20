@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint --dir src",
     "check-types": "tsc --noEmit",
-    "format": "prettier --write ./src"
+    "format": "prettier --write ./src",
+    "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@emotion/react": "^11.10.0",
@@ -17,12 +18,20 @@
     "@mui/material": "^5.10.0",
     "@mui/x-data-grid": "^5.15.2",
     "formik": "^2.2.9",
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6",
     "next": "12.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "urql": "^2.2.3",
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "2.11.6",
+    "@graphql-codegen/typescript": "2.7.3",
+    "@graphql-codegen/typescript-operations": "2.5.3",
+    "@graphql-codegen/typescript-urql": "^3.6.4",
+    "@graphql-codegen/urql-introspection": "2.2.1",
     "@types/node": "18.7.1",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
