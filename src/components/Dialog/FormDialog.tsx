@@ -9,6 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Button, TextField } from '@mui/material';
+import { useCreateEmployeeMutation } from '@/generated/graphql';
 
 const validationSchema = yup.object({
   name: yup
@@ -18,6 +19,11 @@ const validationSchema = yup.object({
 });
 
 export const FormDialog = () => {
+
+  const [
+    insertIntoemployeesCollectionResult,
+    insertIntoemployeesCollection
+  ] = useCreateEmployeeMutation()
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -33,8 +39,13 @@ export const FormDialog = () => {
       name: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values, actions) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: (value, actions) => {
+      insertIntoemployeesCollection({ objects: [value] }).then(result => {
+        if (result.error) {
+          console.error('Oh no!', result.error);
+        }
+      });
+
       handleClose();
       actions.resetForm();
     },

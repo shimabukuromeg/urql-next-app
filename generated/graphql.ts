@@ -27,6 +27,7 @@ export type BigIntFilter = {
   eq?: InputMaybe<Scalars['BigInt']>;
   gt?: InputMaybe<Scalars['BigInt']>;
   gte?: InputMaybe<Scalars['BigInt']>;
+  in?: InputMaybe<Array<Scalars['BigInt']>>;
   lt?: InputMaybe<Scalars['BigInt']>;
   lte?: InputMaybe<Scalars['BigInt']>;
   neq?: InputMaybe<Scalars['BigInt']>;
@@ -37,6 +38,7 @@ export type BooleanFilter = {
   eq?: InputMaybe<Scalars['Boolean']>;
   gt?: InputMaybe<Scalars['Boolean']>;
   gte?: InputMaybe<Scalars['Boolean']>;
+  in?: InputMaybe<Array<Scalars['Boolean']>>;
   lt?: InputMaybe<Scalars['Boolean']>;
   lte?: InputMaybe<Scalars['Boolean']>;
   neq?: InputMaybe<Scalars['Boolean']>;
@@ -47,6 +49,7 @@ export type DateFilter = {
   eq?: InputMaybe<Scalars['Date']>;
   gt?: InputMaybe<Scalars['Date']>;
   gte?: InputMaybe<Scalars['Date']>;
+  in?: InputMaybe<Array<Scalars['Date']>>;
   lt?: InputMaybe<Scalars['Date']>;
   lte?: InputMaybe<Scalars['Date']>;
   neq?: InputMaybe<Scalars['Date']>;
@@ -57,6 +60,7 @@ export type DatetimeFilter = {
   eq?: InputMaybe<Scalars['Datetime']>;
   gt?: InputMaybe<Scalars['Datetime']>;
   gte?: InputMaybe<Scalars['Datetime']>;
+  in?: InputMaybe<Array<Scalars['Datetime']>>;
   lt?: InputMaybe<Scalars['Datetime']>;
   lte?: InputMaybe<Scalars['Datetime']>;
   neq?: InputMaybe<Scalars['Datetime']>;
@@ -67,6 +71,7 @@ export type FloatFilter = {
   eq?: InputMaybe<Scalars['Float']>;
   gt?: InputMaybe<Scalars['Float']>;
   gte?: InputMaybe<Scalars['Float']>;
+  in?: InputMaybe<Array<Scalars['Float']>>;
   lt?: InputMaybe<Scalars['Float']>;
   lte?: InputMaybe<Scalars['Float']>;
   neq?: InputMaybe<Scalars['Float']>;
@@ -77,6 +82,7 @@ export type IntFilter = {
   eq?: InputMaybe<Scalars['Int']>;
   gt?: InputMaybe<Scalars['Int']>;
   gte?: InputMaybe<Scalars['Int']>;
+  in?: InputMaybe<Array<Scalars['Int']>>;
   lt?: InputMaybe<Scalars['Int']>;
   lte?: InputMaybe<Scalars['Int']>;
   neq?: InputMaybe<Scalars['Int']>;
@@ -149,9 +155,13 @@ export type MutationUpdatefoodsCollectionArgs = {
 
 /** Defines a per-field sorting order */
 export enum OrderByDirection {
+  /** Ascending order, nulls first */
   AscNullsFirst = 'AscNullsFirst',
+  /** Ascending order, nulls last */
   AscNullsLast = 'AscNullsLast',
+  /** Descending order, nulls first */
   DescNullsFirst = 'DescNullsFirst',
+  /** Descending order, nulls last */
   DescNullsLast = 'DescNullsLast'
 }
 
@@ -199,6 +209,7 @@ export type StringFilter = {
   eq?: InputMaybe<Scalars['String']>;
   gt?: InputMaybe<Scalars['String']>;
   gte?: InputMaybe<Scalars['String']>;
+  in?: InputMaybe<Array<Scalars['String']>>;
   lt?: InputMaybe<Scalars['String']>;
   lte?: InputMaybe<Scalars['String']>;
   neq?: InputMaybe<Scalars['String']>;
@@ -209,6 +220,7 @@ export type TimeFilter = {
   eq?: InputMaybe<Scalars['Time']>;
   gt?: InputMaybe<Scalars['Time']>;
   gte?: InputMaybe<Scalars['Time']>;
+  in?: InputMaybe<Array<Scalars['Time']>>;
   lt?: InputMaybe<Scalars['Time']>;
   lte?: InputMaybe<Scalars['Time']>;
   neq?: InputMaybe<Scalars['Time']>;
@@ -217,6 +229,7 @@ export type TimeFilter = {
 /** Boolean expression comparing fields on type "UUID" */
 export type UuidFilter = {
   eq?: InputMaybe<Scalars['UUID']>;
+  in?: InputMaybe<Array<Scalars['UUID']>>;
   neq?: InputMaybe<Scalars['UUID']>;
 };
 
@@ -243,7 +256,7 @@ export type EmployeesDeleteResponse = {
 export type EmployeesEdge = {
   __typename?: 'employeesEdge';
   cursor: Scalars['String'];
-  node?: Maybe<Employees>;
+  node: Employees;
 };
 
 export type EmployeesFilter = {
@@ -304,7 +317,7 @@ export type FoodsDeleteResponse = {
 export type FoodsEdge = {
   __typename?: 'foodsEdge';
   cursor: Scalars['String'];
-  node?: Maybe<Foods>;
+  node: Foods;
 };
 
 export type FoodsFilter = {
@@ -345,10 +358,17 @@ export type FoodsUpdateResponse = {
   records: Array<Foods>;
 };
 
+export type CreateEmployeeMutationVariables = Exact<{
+  objects: Array<EmployeesInsertInput> | EmployeesInsertInput;
+}>;
+
+
+export type CreateEmployeeMutation = { __typename?: 'Mutation', insertIntoemployeesCollection?: { __typename?: 'employeesInsertResponse', records: Array<{ __typename: 'employees', id: number, name?: string | null }> } | null };
+
 export type FetchEmployeeListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FetchEmployeeListQuery = { __typename?: 'Query', employeesCollection?: { __typename?: 'employeesConnection', edges: Array<{ __typename?: 'employeesEdge', node?: { __typename?: 'employees', id: number, name?: string | null } | null }> } | null };
+export type FetchEmployeeListQuery = { __typename?: 'Query', employeesCollection?: { __typename?: 'employeesConnection', edges: Array<{ __typename?: 'employeesEdge', node: { __typename?: 'employees', id: number, name?: string | null } }> } | null };
 
 import { IntrospectionQuery } from 'graphql';
 export default {
@@ -845,9 +865,12 @@ export default {
           {
             "name": "node",
             "type": {
-              "kind": "OBJECT",
-              "name": "employees",
-              "ofType": null
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "employees",
+                "ofType": null
+              }
             },
             "args": []
           }
@@ -1051,9 +1074,12 @@ export default {
           {
             "name": "node",
             "type": {
-              "kind": "OBJECT",
-              "name": "foods",
-              "ofType": null
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "foods",
+                "ofType": null
+              }
             },
             "args": []
           }
@@ -1141,6 +1167,21 @@ export default {
   }
 } as unknown as IntrospectionQuery;
 
+export const CreateEmployeeDocument = gql`
+    mutation CreateEmployee($objects: [employeesInsertInput!]!) {
+  insertIntoemployeesCollection(objects: $objects) {
+    records {
+      __typename
+      id
+      name
+    }
+  }
+}
+    `;
+
+export function useCreateEmployeeMutation() {
+  return Urql.useMutation<CreateEmployeeMutation, CreateEmployeeMutationVariables>(CreateEmployeeDocument);
+};
 export const FetchEmployeeListDocument = gql`
     query FetchEmployeeList {
   employeesCollection {

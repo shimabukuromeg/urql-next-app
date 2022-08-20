@@ -1,0 +1,9 @@
+mutation CreateEmployee($objects: [employeesInsertInput!]!) {
+  insertIntoemployeesCollection(objects: $objects) {
+    records {
+      __typename
+      id
+      name
+    }
+  }
+}
