@@ -9,7 +9,7 @@
     "lint": "next lint --dir src",
     "check-types": "tsc --noEmit",
     "format": "prettier --write ./src",
-    "generate": "graphql-codegen --config codegen.yml"
+    "generate": "graphql-codegen --config codegen.yml -r dotenv/config"
   },
   "dependencies": {
     "@emotion/react": "^11.10.0",
