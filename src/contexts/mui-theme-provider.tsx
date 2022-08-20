@@ -53,11 +53,11 @@ const getDesignTokens = (mode: PaletteMode) => ({
           },
         }
       : {
-        primary: {
-          main: '#34b27b',
-          contrastText: '#f9f4f4',
-        },
-      }),
+          primary: {
+            main: '#34b27b',
+            contrastText: '#f9f4f4',
+          },
+        }),
   },
 });
 

@@ -19,11 +19,8 @@ const validationSchema = yup.object({
 });
 
 export const FormDialog = () => {
-
-  const [
-    insertIntoemployeesCollectionResult,
-    insertIntoemployeesCollection
-  ] = useCreateEmployeeMutation()
+  const [insertIntoemployeesCollectionResult, insertIntoemployeesCollection] =
+    useCreateEmployeeMutation();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -40,7 +37,7 @@ export const FormDialog = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (value, actions) => {
-      insertIntoemployeesCollection({ objects: [value] }).then(result => {
+      insertIntoemployeesCollection({ objects: [value] }).then((result) => {
         if (result.error) {
           console.error('Oh no!', result.error);
         }

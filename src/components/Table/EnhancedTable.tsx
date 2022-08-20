@@ -171,7 +171,6 @@ export const EnhancedTable = () => {
     setOrderBy(property);
   };
 
-
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -219,14 +218,10 @@ export const EnhancedTable = () => {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
-                  if (row?.node == null) return <></>
+                  if (row?.node == null) return <></>;
 
                   return (
-                    <StyledTableRow
-                      hover
-                      tabIndex={-1}
-                      key={row?.node.id}
-                    >
+                    <StyledTableRow hover tabIndex={-1} key={row?.node.id}>
                       <TableCell component="th" id={labelId} scope="row">
                         {row?.node.id}
                       </TableCell>
