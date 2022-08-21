@@ -17,6 +17,7 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.10.0",
     "@mui/x-data-grid": "^5.15.2",
+    "@urql/exchange-refocus": "^1.0.0",
     "formik": "^2.2.9",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
