@@ -186,7 +186,14 @@ export const EnhancedTable = () => {
     setDense(event.target.checked);
   };
 
-  const [result] = useFetchEmployeeListQuery();
+  const context = React.useMemo(
+    () => ({ additionalTypenames: ["employees"] }),
+    []
+  );
+
+  const [result] = useFetchEmployeeListQuery({
+    context,
+  });
   const { data, error } = result;
 
   console.log(data);
